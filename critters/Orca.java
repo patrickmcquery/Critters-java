@@ -194,11 +194,19 @@ public class Orca extends Critter {
 
     public Color getColor() 
     {
-        return Color.MAGENTA;
+        if(this.time % 2 == 0)
+        {
+            return Color.DARK_GRAY;
+        }
+        return Color.LIGHT_GRAY;
     }
 
     public String toString() {
-        return "X";
+        if(this.time % 2 == 0)
+        {
+            return "W";
+        }
+        return "w";
     }
     
     public Action randLorR ()
