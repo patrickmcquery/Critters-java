@@ -7,13 +7,6 @@ import java.awt.*;
 import javax.lang.model.util.ElementScanner6;
 
 public class Orca extends Critter {
-    enum EnemyLoc
-    {
-        FRONT,
-        BACK,
-        LEFT,
-        RIGHT
-    }
     private int time;
     public Orca ()
     {
@@ -24,6 +17,9 @@ public class Orca extends Critter {
         if(info.getFront() == Neighbor.OTHER)
         {
             return Action.INFECT;
+        } else if(info.getFront() == Neighbor.WALL)
+        {
+            return randLorR();
         } else if(info.getBack() == Neighbor.OTHER)
         {
             return Action.HOP;
@@ -33,12 +29,9 @@ public class Orca extends Critter {
         } else if(info.getLeft() == Neighbor.OTHER)
         {
             return Action.LEFT;
-        }else if(info.getFront() == Neighbor.EMPTY)
+        } else if(info.getFront() == Neighbor.EMPTY)
         {
             return Action.HOP;
-        } else if(info.getFront() == Neighbor.WALL)
-        {
-            return randLorR();
         } else if(info.getRight() == Neighbor.SAME)
         {
             switch(info.getRightDirection())
@@ -113,7 +106,7 @@ public class Orca extends Critter {
                             case SOUTH: return Action.HOP;
                         }
                 }
-        }  else if(info.getBack() == Neighbor.SAME)
+        } else if(info.getBack() == Neighbor.SAME)
         {
             switch(info.getBackDirection())
             {
@@ -194,19 +187,19 @@ public class Orca extends Critter {
 
     public Color getColor() 
     {
-        if(this.time % 2 == 0)
+        if(this.time % 4 == 0)
         {
-            return Color.DARK_GRAY;
+            return Color.MAGENTA;
         }
-        return Color.LIGHT_GRAY;
+        return Color.YELLOW;
     }
 
     public String toString() {
-        if(this.time % 2 == 0)
+        if(this.time % 4 == 0)
         {
-            return "W";
+            return "X";
         }
-        return "w";
+        return "x";
     }
     
     public Action randLorR ()
