@@ -1,18 +1,28 @@
-// This defines a simple class of critters that infect whenever they can and
-// otherwise just spin around, looking for critters to infect.  This simple
-// strategy turns out to be surpisingly successful.
+/*
+ * The lion critter.
+ */
 
 import java.awt.*;
 
 import javax.lang.model.util.ElementScanner6;
 
 public class Lion extends Critter {
+
     private int time;
     private Color currentColor;
+
+    //Constructor, sets time to 0
     public Lion ()
     {
         this.time = 0;
     }
+
+    /* always infect if an enemy is in front
+     * otherwise if a wall is in front or to the right, then turn left
+     * otherwise if a fellow Lion is in front, then turn right
+     * otherwise hop.
+    */
+
     public Action getMove(CritterInfo info) {
         this.time++;
         if (info.getFront() == Neighbor.OTHER) {
@@ -29,6 +39,19 @@ public class Lion extends Critter {
         }
     }
 
+    /*
+     * Randomly picks one of three colors 
+     * (Color.RED, Color.GREEN, Color.BLUE) and uses 
+     * that color for three moves, then randomly picks 
+     * one of those colors again for the next three moves,
+     *  then randomly picks another one of those colors 
+     * for the next three moves, and so on.
+     * 
+     * I used Math.random to get a random double between
+     * 0.0 and 1.0 and based on the result return either
+     * red blue or green. This only happens every 3 steps by
+     * using the mod operator.
+     */
     public Color getColor() 
     {
         double rand = Math.random();
@@ -47,7 +70,8 @@ public class Lion extends Critter {
         }
         return currentColor;
     }
-
+    
+    //Returns the string "L"
     public String toString() {
         return "L";
     }

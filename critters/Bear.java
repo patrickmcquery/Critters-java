@@ -1,14 +1,17 @@
-// This defines a simple class of critters that infect whenever they can and
-// otherwise just spin around, looking for critters to infect.  This simple
-// strategy turns out to be surpisingly successful.
+//The bear critter
 
 import java.awt.*;
 
 import javax.lang.model.util.ElementScanner6;
 
 public class Bear extends Critter {
+
     private boolean polarBear;
     private int time;
+
+    /*
+     *  Sets the polar boolean to the appropriate value
+     */
     public Bear (boolean polar)
     {
         this.time = 0;
@@ -21,6 +24,12 @@ public class Bear extends Critter {
             polarBear = false;
         }
     }
+
+    /*
+     *  always infect if an enemy is in front
+     * otherwise hop if possible
+     * otherwise turn left.
+     */
     public Action getMove(CritterInfo info) {
         this.time++;
         if (info.getFront() == Neighbor.OTHER) {
@@ -34,6 +43,12 @@ public class Bear extends Critter {
         }
     }
 
+    /*
+     *  Color.WHITE for a polar bear (when polar is true), 
+     *  Color.BLACK otherwise (when polar is false)
+     * 
+     *  Pretty easy if/else statement.
+     */
     public Color getColor() 
     {
         if(polarBear)
@@ -45,6 +60,13 @@ public class Bear extends Critter {
         }
     }
 
+    /*
+     *  Should alternate on each different move between 
+     * a slash character (/) and a backslash character (\)
+     *  starting with a slash.
+     * 
+     *  I do this with the mod operator.
+     */
     public String toString() {
         if(time % 2 == 0)
         {
